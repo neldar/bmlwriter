@@ -2,9 +2,19 @@
  *---------------------------------------------------------------------------*
  *                                                                           *
  * Copyright (C) 2010 Michael Richter (alias neldar)                         *
- * This program is free software; you can redistribute it and/or modify      *
- * it under the terms of the GNU General Public License version 3 as         *
- * published by the Free Software Foundation.                                *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU General Public License as published by the     *
+ * Free Software Foundation; either version 3 of the License, or (at your    *
+ * option) any later version.                                                *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General  *
+ * Public License for more details.                                          *
+ *                                                                           *
+ * You should have received a copy of the GNU General Public License along   *
+ * with this program; if not, see <http://www.gnu.org/licenses/>.            *
  *                                                                           *
  *---------------------------------------------------------------------------*
 */
@@ -12,7 +22,9 @@
 
 #include "bmlwriter.h"
 
-void errorPrint(ssize_t bytes_read, ssize_t total_read, ssize_t bytes_written, ssize_t total_written, ssize_t remaining){
+void errorPrint(ssize_t bytes_read, ssize_t total_read, ssize_t bytes_written,
+	ssize_t total_written, ssize_t remaining){
+
 	printf("bytes_read(%i) total_read(%i)\n", bytes_read, total_read);
 	printf("bytes_written(%i) total_written(%i)\n", bytes_written, total_written);
 	printf("bytesRemaining(%lld)\n", (unsigned long long)remaining);
