@@ -1,0 +1,30 @@
+bmlwriter - write bml partitions on Samsungs android smartphones
+
+Usage:
+bmlwriter srcpath destpath
+
+For example to flash a zImage on SGS:
+bmlwriter zImage /dev/block/bml7
+
+ATTENTION:
+Check the exit value, if it says below "UNSAFE -> RETRY FLASH!!!" on that particular value, you should do that!
+That means the destination partition is only partial written and boot will fail!
+
+Return values:
+0: success
+1: invalid number of arguments to bmlwriter -> safe
+2: srcfile can not be opened -> safe
+3: destpartition can not be opened -> safe
+4: bmlunlock failed -> safe
+5: copy failed on fstat -> safe
+6: copy failed on read, but nothing written -> safe
+7: copy failed on read, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
+8: copy failed on partial read before file ends, but nothing written -> safe
+9: copy failed on partial read before file ends, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
+10 copy failed on write -> UNSAFE -> RETRY FLASH!!!
+
+
+Authors:
+neldar		- improvments -> bmlwriter
+Unhelpful	- initial bmlwrite 
+koush		- bmlunlock
