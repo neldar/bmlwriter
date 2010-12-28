@@ -10,21 +10,29 @@ ATTENTION:
 Check the exit value, if it says below "UNSAFE -> RETRY FLASH!!!" on that particular value, you should do that!
 That means the destination partition is only partial written and boot will fail!
 
-Return values:
-0: success
-1: invalid number of arguments to bmlwriter -> safe
-2: srcfile can not be opened -> safe
-3: destpartition can not be opened -> safe
-4: bmlunlock failed -> safe
-5: copy failed on fstat -> safe
-6: copy failed on read, but nothing written -> safe
-7: copy failed on read, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
-8: copy failed on partial read before file ends, but nothing written -> safe
-9: copy failed on partial read before file ends, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
-10 copy failed on write -> UNSAFE -> RETRY FLASH!!!
+RETURN values:
+
+ERROR_*	just indicate the program failed, but the destination partition remain untouched.
+FATAL_*	indicate the program critically failed and the destination is PARTIAL written.
+	That means the phone (mostly) will fail to boot at this point.
+	FATAL errors are not often, but you should take care of them -> restart bmlwriter
+
+SUCCESS: success
+
+ERROR_INVALID_ARGC: invalid number of arguments to bmlwriter -> safe
+ERROR_SRC_OPEN: srcfile can not be opened -> safe
+ERROR_DST_OPEN: destpartition can not be opened -> safe
+ERROR_UNLOCK_FAIL: bmlunlock failed -> safe
+
+ERROR_FSTAT: copy failed on fstat -> safe
+ERROR_READ: copy failed on read, but nothing written -> safe
+FATAL_READ_PARTIAL_WRITE: copy failed on read, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
+ERROR_PARTIAL_READ: copy failed on partial read before file ends, but nothing written -> safe
+FATAL_PARTIAL_READ_PARTIAL_WRITE: copy failed on partial read before file ends, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
+FATAL_WRITE copy failed on write -> UNSAFE -> RETRY FLASH!!!
 
 
 Authors:
-neldar		- improvments -> bmlwriter
+neldar		- improvments (POSIX read, error handling) -> bmlwriter
 Unhelpful	- initial bmlwrite 
 koush		- bmlunlock
