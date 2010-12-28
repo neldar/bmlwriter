@@ -6,16 +6,8 @@ bmlwriter srcpath destpath
 For example to flash a zImage on SGS:
 bmlwriter zImage /dev/block/bml7
 
-ATTENTION:
-Check the exit value, if it says below "UNSAFE -> RETRY FLASH!!!" on that particular value, you should do that!
-That means the destination partition is only partial written and boot will fail!
-
-RETURN values:
-
-ERROR_*	just indicate the program failed, but the destination partition remain untouched.
-FATAL_*	indicate the program critically failed and the destination is PARTIAL written.
-	That means the phone (mostly) will fail to boot at this point.
-	FATAL errors are not often, but you should take care of them -> restart bmlwriter
+RETURN VALUES:
+Exit values are defined in bmlwritererror.h, read the ATTENTION section below!
 
 SUCCESS: success
 
@@ -30,6 +22,12 @@ FATAL_READ_PARTIAL_WRITE: copy failed on read, BUT with partial write -> UNSAFE 
 ERROR_PARTIAL_READ: copy failed on partial read before file ends, but nothing written -> safe
 FATAL_PARTIAL_READ_PARTIAL_WRITE: copy failed on partial read before file ends, BUT with partial write -> UNSAFE -> RETRY FLASH!!!
 FATAL_WRITE copy failed on write -> UNSAFE -> RETRY FLASH!!!
+
+ATTENTION:
+ERROR_*	just indicate the program failed, but the destination partition remain untouched.
+FATAL_*	indicate the program critically failed and the destination is PARTIAL written.
+	That means the phone (mostly) will fail to boot at this point.
+	FATAL errors are not often, but you should take care of them -> restart bmlwriter
 
 
 Authors:
